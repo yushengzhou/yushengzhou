@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="76" viewBox="0 0 560 76" role="img" aria-labelledby="title">
+  <title id="title">Yusheng Zhou, Postdoctoral Researcher</title>
+  <rect width="560" height="76" fill="#ffffff"/>
+  <defs>
+    <clipPath id="clip-name">
+      <rect x="24" y="0" height="76" width="0">
+        <animate attributeName="width" dur="10s" repeatCount="indefinite" values="0;234;234;0;0" keyTimes="0;0.30;0.42;0.48;1"/>
+      </rect>
+    </clipPath>
+    <clipPath id="clip-role">
+      <rect x="24" y="0" height="76" width="0">
+        <animate attributeName="width" dur="10s" repeatCount="indefinite" values="0;0;432;432;0" keyTimes="0;0.50;0.84;0.94;1"/>
+      </rect>
+    </clipPath>
+  </defs>
+  <g>
+    <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="1;1;0;0" keyTimes="0;0.42;0.48;1"/>
+    <text x="24" y="48" fill="#24292f" font-family="monospace" font-size="30" textLength="234" lengthAdjust="spacingAndGlyphs" clip-path="url(#clip-name)">Yusheng Zhou</text>
+    <rect x="24" y="22" width="2" height="32" fill="#24292f">
+      <animate attributeName="x" dur="10s" repeatCount="indefinite" values="24;258;258;24;24" keyTimes="0;0.30;0.42;0.48;1"/>
+      <animate attributeName="opacity" dur="0.8s" repeatCount="indefinite" values="1;1;0;0" keyTimes="0;0.45;0.5;1"/>
+    </rect>
+  </g>
+  <g>
+    <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.50;0.54;0.94;1"/>
+    <text x="24" y="48" fill="#24292f" font-family="monospace" font-size="30" textLength="432" lengthAdjust="spacingAndGlyphs" clip-path="url(#clip-role)">Postdoctoral Researcher</text>
+    <rect x="24" y="22" width="2" height="32" fill="#24292f">
+      <animate attributeName="x" dur="10s" repeatCount="indefinite" values="24;24;456;456;24" keyTimes="0;0.50;0.84;0.94;1"/>
+      <animate attributeName="opacity" dur="0.8s" repeatCount="indefinite" values="1;1;0;0" keyTimes="0;0.45;0.5;1"/>
+    </rect>
+  </g>
+</svg>
