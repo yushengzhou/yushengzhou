@@ -26,5 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The opening of the spec said the profile repository was still to be created. It now says `yushengzhou/yushengzhou` exists.
 - The spec’s contribution-snake feature and the borrowing record’s snake row said the snake Action was blocked. They now cite the accepted decision to pin it.
+- The spec’s license flag, stack-table snake row, open inputs, install lead-in, and license risk, and the borrowing record’s tools row, now say the repository exists and that the snake Action is the approved pinned dependency. The no-license risk text stays.
 
 [Unreleased]: https://github.com/yushengzhou/yushengzhou/compare/main...feat/profile-readme

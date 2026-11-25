@@ -36,7 +36,7 @@ Root already placed skill badges, stats cards, trophies, visitor counters, star 
 
 | Tool | License | Role in this project |
 |---|---|---|
-| Platane/snk (and npm `generate-snake-animation@3.5.0`) | **No license** (high risk) | Proposed Action dependency only, pending chief go-ahead. Do not vendor source. |
+| Platane/snk (and npm `generate-snake-animation@3.5.0`) | **No license** (high risk) | Approved pinned Action dependency ([ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md)). Do not vendor source. |
 | dahan8473/snake-and-commits | MIT | Inspected as a licensed alternative; rejected as primary (no releases, small/young). |
 | jkdevcode/snake_animation, HowardZlh/github-action-shares | MIT (where declared) | Not used; not mature substitutes for snk. |
 | DenverCoder1/readme-typing-svg | MIT (Twemoji, if used, is CC-BY 4.0) | Not used at runtime; idea only. Do not copy SVG output or demo HTML. |

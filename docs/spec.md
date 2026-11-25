@@ -6,7 +6,7 @@ The public repository `yushengzhou/yushengzhou` exists. An unauthenticated API c
 
 **Existing-solution check:** Mature README *generators* exist (rahuldkjain/github-profile-readme-generator, Apache-2.0, ~24.5k stars; GPRM / GitHub Profile ReadMe Maker, **GPL-3.0**; GitSkins and similar template galleries). They emit generic badge/stats/trophy pages and do not ship Root's four chosen elements as an original academic profile. **Building is still right.** Do not start from those generators, and do not use GPRM (GPL-3.0).
 
-**License flag (needs github chief go-ahead before implementation):** `Platane/snk` — the mature contribution-snake Action — has **no LICENSE file**, no `license` in `package.json`, GitHub `license: null`, and npm `generate-snake-animation@3.5.0` also has no license. That is **high risk** (default copyright / all rights reserved). Using it as an Action is still a dependency. See Stack and Risks.
+**License flag (approved as a pinned Action; see [ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md)):** `Platane/snk` — the mature contribution-snake Action — has **no LICENSE file**, no `license` in `package.json`, GitHub `license: null`, and npm `generate-snake-animation@3.5.0` also has no license. That is **high risk** (default copyright / all rights reserved). Using it as an Action is still a dependency. See Stack and Risks.
 
 ## Goal
 
@@ -37,7 +37,7 @@ Checked 2026-11-25. Prefer no dependency where possible.
 | Typing intro | **Original SMIL SVGs in-repo** | Name + role are static; avoids a third-party host, rate limits, and query-string privacy. GitHub camo serves `image/svg+xml` and does not strip SVG internals; `<img>` plays SMIL/CSS, not scripts. | Original work, repo MIT | n/a | n/a | n/a | n/a | n/a |
 | Typing (rejected runtime) | DenverCoder1/readme-typing-svg at `readme-typing-svg.demolab.com` | Mature MIT tool, but the public service is **Heroku + Cloudflare** (not Vercel). No published SLA, rate limit, or privacy policy. Project itself prefers self-hosting. Past XSS in query `lines` (issue #7, 2021, closed). Occasional broken-image reports (e.g. #444). | MIT | v0.11.0, 2026-11-19 | 135 contributors | Push 2026-11-24; 9.5k stars | Closed XSS #7 (2021); no open security issues found; no OSV hit used | 9546 : 26 ≈ 367 : 1 |
 | Diagram | **GitHub-native Mermaid** | No image, no service, auto light/dark. Confirmed for Markdown files (docs) and used on profile READMEs (e.g. BEPb). Keep the graph small. | n/a (platform) | n/a | n/a | n/a | Interactive `click` disabled in GitHub's sandbox | n/a |
-| Snake (proposed, **license go-ahead required**) | **Platane/snk/svg-only** pinned to `d8f6715049803e982ee5ff501b6b9b7d5deeb09b` (`v3.5.0`) | De-facto standard; SVG-only is faster than the GIF-capable Action; recent enough (release < 18 months); 5 open issues. **Do not copy source** — Action use only. Single maintainer; PRs not accepted. OpenSSF Scorecard (2026-08-24): License 0/10, Maintained 0/10 (a later push was 2026-11-17). | **None (high risk)** | v3.5.0, 2026-04-25 | 5 contributors, almost all one maintainer | Release 7 months ago; push 2026-11-17 | No matching issues or OSV vulns found for this repo/package | 6203 : 5 ≈ 1241 : 1 |
+| Snake (approved pinned dependency; [ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md)) | **Platane/snk/svg-only** pinned to `d8f6715049803e982ee5ff501b6b9b7d5deeb09b` (`v3.5.0`) | De-facto standard; SVG-only is faster than the GIF-capable Action; recent enough (release < 18 months); 5 open issues. **Do not copy source** — Action use only. Single maintainer; PRs not accepted. OpenSSF Scorecard (2026-08-24): License 0/10, Maintained 0/10 (a later push was 2026-11-17). | **None (high risk)** | v3.5.0, 2026-04-25 | 5 contributors, almost all one maintainer | Release 7 months ago; push 2026-11-17 | No matching issues or OSV vulns found for this repo/package | 6203 : 5 ≈ 1241 : 1 |
 | Snake (rejected as primary) | dahan8473/snake-and-commits | MIT, but **no releases**, 31 stars, 1 maintainer, created 2026-07-20. Fails the “release within 18 months unless no alternative” rule as a first choice. | MIT | none | 1 | Push 2026-11-25 | None found | 31 : 0 (no ratio) |
 | Checkout / publish | **actions/checkout** `3d3c42e5aac5ba805825da76410c181273ba90b1` (`v7.0.1`) + `git push` to `output` | Official Action, MIT, active. Pushing with `GITHUB_TOKEN` avoids a third-party deploy Action and avoids Pages artifacts (wrong tool here). | MIT | v7.0.1, 2026-07-20 | 54 contributors (org: GitHub) | Push 2026-10-17 | No package-specific advisory found in this review | 9048 : 702 ≈ 13 : 1 (issue volume is normal for this Action) |
 | Deploy Action (not chosen) | JamesIves/github-pages-deploy-action or crazy-max/ghaction-github-pages | Both MIT and maintained; unnecessary if git push is used. Recorded only as fallbacks. | MIT / MIT | v4.9.0 2026-08-08 / v5.0.0 2026-03-02 | 39 / 11 | Pushes 2026-11-24 / 2026-11-25 | None found in this review | 4612 : 7 ≈ 659 : 1 / 535 : 11 ≈ 49 : 1 |
@@ -52,7 +52,7 @@ Checked 2026-11-25. Prefer no dependency where possible.
 - GitHub API contribution calendar for `yushengzhou`, authenticated with `GITHUB_TOKEN` only.
 - No other personal data, no internal paths, no unpublished facts.
 
-**Open inputs:** none for interests or email (both are real in the approved PR). Chief go-ahead is required for `Platane/snk` (no license).
+**Open inputs:** none for interests or email (both are real in the approved PR). `Platane/snk` is approved as a pinned Action dependency ([ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md)); it still has no license.
 
 ## File / branch layout
 
@@ -87,7 +87,7 @@ README image URLs: `https://raw.githubusercontent.com/yushengzhou/yushengzhou/ou
 
 ## Install / test / start
 
-Repo does not exist yet; engineer creates it, then:
+The public repository `yushengzhou/yushengzhou` exists. The snake Action is the approved pinned dependency in [ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md). After that workflow is on `main`:
 
 ```bash
 # after first push to main
@@ -112,7 +112,7 @@ Local Markdown preview cannot fully substitute for GitHub (Mermaid, camo, `<pict
 
 ## Risks
 
-- **`Platane/snk` has no license.** High risk. Engineer must not implement the snake Action until github chief approves this dependency. If declined, there is no equally mature licensed alternative; do not quietly switch to an unreleased MIT Action.
+- **`Platane/snk` has no license.** High risk. The snake Action is approved as a pinned dependency in [ADR-0001](decisions/ADR-0001-pin-platane-snk-action.md). There is no equally mature licensed alternative; do not quietly switch to an unreleased MIT Action.
 - **Site link 404** until academic PR #1 is merged and Pages is serving.
 - **First snake 404** until the first successful workflow run creates `output`.
 - **Camo / raw.githubusercontent.com cache** may show a stale snake after a daily overwrite of the same URL.
