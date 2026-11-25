@@ -1,0 +1,54 @@
+name: Contribution snake
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contribution-snake
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Draw the contribution snake
+        uses: Platane/snk/svg-only@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3.5.0
+        with:
+          github_user_name: yushengzhou
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - name: Publish SVGs to the output branch
+        env:
+          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${PUSH_TOKEN}"
+          test -f dist/github-snake.svg
+          test -f dist/github-snake-dark.svg
+          stage="${RUNNER_TEMP}/snake-output"
+          rm -rf "${stage}"
+          mkdir -p "${stage}"
+          cp dist/github-snake.svg dist/github-snake-dark.svg "${stage}/"
+          cd "${stage}"
+          git init -b output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github-snake.svg github-snake-dark.svg
+          git commit -m "chore: update contribution snake"
+          dest_ref="refs/heads/output"
+          test "${dest_ref}" = "refs/heads/output"
+          git push --force "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/output"
