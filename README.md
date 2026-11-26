@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/typing-light.svg">
-  <img alt="Yusheng Zhou, Postdoctoral Researcher" src="assets/typing-light.svg">
+  <img alt="Yusheng Zhou, MPH, PhD. Environmental Epidemiologist; Climate, Environment &amp; Cardiovascular Health; R · Python · Data Science" src="assets/typing-light.svg">
 </picture>
 
 ## Research interests

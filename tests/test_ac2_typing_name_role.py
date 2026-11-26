@@ -2,7 +2,7 @@ import unittest
 
 from profile_checks import (
     NAME,
-    ROLE,
+    TAGLINES,
     TYPING_DARK,
     TYPING_LIGHT,
     check_ac2,
@@ -40,7 +40,7 @@ class TypingNameRole(unittest.TestCase):
         files = valid_files()
         files[TYPING_LIGHT] = (
             '<svg xmlns="http://www.w3.org/2000/svg">'
-            f"<!-- {NAME} {ROLE} -->"
+            f"<!-- {NAME} {TAGLINES[0]} -->"
             "<text>Hello</text>"
             '<animate attributeName="opacity" dur="1s" repeatCount="indefinite" values="1;0"/>'
             "</svg>"
@@ -55,6 +55,13 @@ class TypingNameRole(unittest.TestCase):
         with materialize(files) as root:
             errors = check_ac2(root)
         self.assertTrue(any("does not loop" in error for error in errors))
+
+    def test_ac2_failure_when_postdoc_title_returns(self):
+        files = valid_files()
+        files[TYPING_LIGHT] = typing_svg("#ffffff").replace(TAGLINES[0], "Postdoctoral Researcher")
+        with materialize(files) as root:
+            errors = check_ac2(root)
+        self.assertTrue(any(f"does not include {TAGLINES[0]}" in error for error in errors))
 
     def test_ac2_edge_light_and_dark_identical(self):
         files = valid_files()
