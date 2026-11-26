@@ -8,3 +8,4 @@ Index of accepted architecture decision records for this profile. Dated 2026-11-
 - [ADR-0004: Publish the snake to `output`](decisions/ADR-0004-publish-snake-to-output-branch.md). `actions/checkout` and `git push` publish the SVGs with `GITHUB_TOKEN`.
 - [ADR-0005: Build the profile from scratch](decisions/ADR-0005-build-the-profile-from-scratch.md). The page is original work. Comparisons with generators and with the reference profile stay in the borrowing record.
 - [ADR-0006: Widgets left out of the profile](decisions/ADR-0006-leave-profile-widgets-out-of-scope.md). Badges, stats, trophies, counters, star history, auto-follow, phone, and referees stay out.
+- [ADR-0007: Fixed name, rotating taglines](decisions/ADR-0007-rotating-taglines.md). The name and credentials stay fixed; line 2 types three field-based taglines in turn instead of the job title (2026-11-26).

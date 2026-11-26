@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The intro keeps the name fixed as Yusheng Zhou, MPH, PhD and types three taglines in turn underneath: Environmental Epidemiologist; Climate, Environment & Cardiovascular Health; R · Python · Data Science. The job title is gone (ADR-0007).
+
 ### Added
 
 - The profile README: a light and dark typing introduction, a research-interests diagram, a light and dark contribution snake, and links to the personal site, ORCID, and public email.

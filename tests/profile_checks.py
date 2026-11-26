@@ -7,6 +7,7 @@ modules under tests/ are the runner; this module is not a test file.
 
 from __future__ import annotations
 
+import html
 import os
 import re
 import tempfile
@@ -29,7 +30,13 @@ EMAIL = "mailto:yushengzhou29@hotmail.com"
 CONTACT_LINKS = [SITE, ORCID, EMAIL]
 
 NAME = "Yusheng Zhou"
-ROLE = "Postdoctoral Researcher"
+# Lines typed in turn under the name. Fields, not job titles, so they do not
+# change with the position (ADR-0007).
+TAGLINES = [
+    "Environmental Epidemiologist",
+    "Climate, Environment & Cardiovascular Health",
+    "R · Python · Data Science",
+]
 COPYRIGHT = "Copyright (c) 2026 Yusheng Zhou"
 
 INTEREST_LABELS = [
@@ -222,7 +229,7 @@ def svg_text_content(svg: str) -> str:
     cleaned = re.sub(r"<script\b[^>]*>.*?</script>", "", cleaned, flags=re.I | re.S)
     chunks = re.findall(r"<text\b[^>]*>(.*?)</text>", cleaned, flags=re.I | re.S)
     text = " ".join(re.sub(r"<[^>]+>", " ", chunk) for chunk in chunks)
-    return re.sub(r"\s+", " ", text).strip()
+    return html.unescape(re.sub(r"\s+", " ", text).strip())
 
 
 def check_svg_file(root: Path, relative: str) -> list[str]:
@@ -245,7 +252,7 @@ def check_svg_file(root: Path, relative: str) -> list[str]:
     if not re.search(r"""repeatCount\s*=\s*["']indefinite["']""", svg):
         errors.append(f"{relative} animation does not loop")
     visible = svg_text_content(svg)
-    for required in (NAME, ROLE):
+    for required in (NAME, *TAGLINES):
         if required not in visible:
             errors.append(f"{relative} text does not include {required}")
     return errors
@@ -303,9 +310,9 @@ def typing_picture_errors(markdown: str) -> list[str]:
             matched = True
             if picture["img_src"] != TYPING_LIGHT:
                 errors.append("typing picture fallback is not the light SVG")
-            alt = str(picture["alt"])
-            if NAME not in alt or ROLE not in alt:
-                errors.append("typing picture alt text does not include the name and role")
+            alt = html.unescape(str(picture["alt"]))
+            if any(part not in alt for part in (NAME, *TAGLINES)):
+                errors.append("typing picture alt text does not include the name and every tagline")
     if not matched:
         errors.append("README.md has no light/dark picture for the typing SVGs")
     return errors
@@ -641,7 +648,9 @@ jobs:
 def typing_svg(fill: str) -> str:
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
   <text>{NAME}</text>
-  <text>{ROLE}</text>
+  <text>{html.escape(TAGLINES[0])}</text>
+  <text>{html.escape(TAGLINES[1])}</text>
+  <text>{html.escape(TAGLINES[2])}</text>
   <rect width="1" height="1" fill="{fill}">
     <animate attributeName="opacity" dur="1s" repeatCount="indefinite" values="1;0;1"/>
   </rect>
@@ -663,7 +672,7 @@ def readme_text() -> str:
     return f"""<picture>
   <source media="(prefers-color-scheme: dark)" srcset="{TYPING_DARK}">
   <source media="(prefers-color-scheme: light)" srcset="{TYPING_LIGHT}">
-  <img alt="{NAME}, {ROLE}" src="{TYPING_LIGHT}">
+  <img alt="{html.escape(NAME + ". " + "; ".join(TAGLINES))}" src="{TYPING_LIGHT}">
 </picture>
 
 ## Research interests

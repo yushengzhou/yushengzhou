@@ -18,21 +18,22 @@ The profile page is `README.md` on `main`. This guide is where setup stays.
 
 ### Typing introduction
 
-The introduction is two original SVGs, switched with `<picture>` and `prefers-color-scheme`:
+The introduction is two original SVGs, switched with `<picture>` and `prefers-color-scheme` (ADR-0002, ADR-0007):
 
-- Light: `assets/typing-light.svg` (background `#ffffff`, text `#24292f`)
-- Dark: `assets/typing-dark.svg` (background `#0d1117`, text `#e6edf3`)
+- Light: `assets/typing-light.svg` (background `#ffffff`, name `#24292f`, other text `#57606a`)
+- Dark: `assets/typing-dark.svg` (background `#0d1117`, name `#e6edf3`, other text `#8d96a0`)
 
-`README.md` points the dark source at `assets/typing-dark.svg`, the light source at `assets/typing-light.svg`, and the `<img>` fallback at the light file. The image `alt` is `Yusheng Zhou, Postdoctoral Researcher`.
+`README.md` points the dark source at `assets/typing-dark.svg`, the light source at `assets/typing-light.svg`, and the `<img>` fallback at the light file. The image `alt` is the name followed by the three taglines.
 
-The name and the role are the character data of the `<text>` elements, and the same words are in the SVG `<title>`. In both files:
+Line 1 is static: `Yusheng Zhou` in bold with `, MPH, PhD` in a regular-weight `<tspan>`. Line 2 types three taglines in turn on a 15-second loop, 5 seconds each (type 1.6 s, hold, erase 0.5 s):
 
-- `Yusheng Zhou` is the `<text>` clipped by `#clip-name`, with `textLength="234"`.
-- `Postdoctoral Researcher` is the `<text>` clipped by `#clip-role`, with `textLength="432"`.
+1. `Environmental Epidemiologist`
+2. `Climate, Environment & Cardiovascular Health` (written `&amp;` in the SVG)
+3. `R · Python · Data Science`
 
-`textLength` with `lengthAdjust="spacingAndGlyphs"` locks each line to that width. The SMIL clip widens to the same width, and the caret’s `x` animation ends at 24 plus that width (258 for the name, 456 for the role). The `<animate>` elements use `repeatCount="indefinite"`. There is no script.
+Each tagline is a monospace 18 px `<text>` with `textLength` set to 10.8 px per character and `lengthAdjust="spacing"`, so its width is fixed whatever monospace font the viewer has. Its `clipPath` width and caret `x` animate to that same width (caret ends at 24 plus the width). Each tagline sits in a `<g>` whose opacity is 1 only during its slot. All `<animate>` elements use `repeatCount="indefinite"`. There is no script.
 
-To change the name or the role, edit both SVGs so the `<text>` lines and the `<title>` stay in step, and edit the README `alt` text to match. Keep the light and dark strings the same. When the line needs a new width, update `textLength` and the matching clip and caret values in that file.
+The taglines are fields, not job titles, so they need no change when the position changes. To change one, edit both SVGs (the `<text>`, its `textLength`, the matching clip and caret values, and the `<title>`), the README `alt` text, and `TAGLINES` in `tests/profile_checks.py`.
 
 ### Research interests
 
